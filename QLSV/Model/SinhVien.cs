@@ -3,6 +3,7 @@ namespace QLSV.Model
 {
     public class SinhVien
     {
+        public int Id {  get; set; }
         public string MaSV { get; set; }
         public string MaLop { get; set; }
         public string HeDaoTao { get; set; }
