@@ -114,5 +114,17 @@ namespace QLSV.Context
                 await connection.ExecuteAsync(query, parameters);
             }
         }
+
+        //Get sinh viên theo lớp
+        public async Task<List<SinhVien>> GetListSinhVienByLop(string maLop)
+        {
+            var query = "SELECT * FROM SinhVien WHERE MaLop = @MaLop";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var sinhviens = await connection.QueryAsync<SinhVien>(query, new { MaLop = maLop });
+                return sinhviens.ToList();
+            }
+        }
     }
 }

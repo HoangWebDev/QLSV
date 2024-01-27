@@ -62,6 +62,12 @@ namespace QLSV.Controllers
            await _business.UpdateSinhVien(MaSV, sinhvien);
         }
 
-
+        //Get sinh viên theo lớp
+        [HttpGet]
+        [Route("GetListSinhVienByLop")]
+        public async Task<List<SinhVien>> GetListSinhVienByLop(string MaLop)
+        {
+            return await _business.GetListSinhVienByLop(MaLop);
+        }
     }
 }
