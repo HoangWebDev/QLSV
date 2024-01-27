@@ -13,17 +13,15 @@ namespace QLSV.Controllers
     
     public class SinhVienAPI : ControllerBase
     {
-        DapperContext _context;
-        BusinessContext _business;
-        public SinhVienAPI(DapperContext context)
+        private readonly DapperContext _context;
+        private readonly BusinessContext _business;
+
+        public SinhVienAPI(DapperContext context, BusinessContext business)
         {
             _context = context;
-        }
-
-        public SinhVienAPI(BusinessContext business)
-        {
             _business = business;
         }
+
 
         [HttpGet]
         [Route("GetListSinhVien")]

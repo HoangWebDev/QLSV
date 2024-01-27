@@ -1,5 +1,4 @@
 
-
 using QLSV.Context;
 
 namespace QLSV
@@ -21,6 +20,7 @@ namespace QLSV
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<DapperContext>();
+            builder.Services.AddScoped<BusinessContext>();
 
             var app = builder.Build();
 
