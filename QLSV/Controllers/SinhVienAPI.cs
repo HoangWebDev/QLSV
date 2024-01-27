@@ -4,7 +4,6 @@ using QLSV.Context;
 using QLSV.Model;
 using QLSV.Response;
 using System.Data;
-using QLSV.Business;
 
 
 namespace QLSV.Controllers
