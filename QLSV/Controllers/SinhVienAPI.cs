@@ -31,7 +31,7 @@ namespace QLSV.Controllers
         public async Task<List<SinhVien>> GetListSinhVien()
         {
             return await _business.GetListSinhVien();
-            }
+        }
 
         //Lấy sinh viên theo MASV
         [HttpGet]
@@ -39,7 +39,7 @@ namespace QLSV.Controllers
         public async Task<SinhVien> GetSinhVienByMASV(string MaSV)
         {
             return await _business.GetSinhVienByMASV(MaSV);
-            }
+        }
 
         //Thêm sinh viên
         [HttpPost]
