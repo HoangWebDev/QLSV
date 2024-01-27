@@ -1,10 +1,9 @@
 ﻿using Dapper;
-using QLSV.Context;
 using QLSV.Model;
 using QLSV.Response;
 using System.Data;
 
-namespace QLSV.Business
+namespace QLSV.Context
 {
     public class BusinessContext
     {
