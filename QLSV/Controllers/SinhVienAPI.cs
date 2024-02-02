@@ -1,7 +1,9 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using QLSV.Context;
+using QLSV.Contracts;
 using QLSV.Model;
+using QLSV.Repository;
 using QLSV.Response;
 using System.Data;
 
@@ -13,13 +15,11 @@ namespace QLSV.Controllers
     
     public class SinhVienAPI : ControllerBase
     {
-        private readonly DapperContext _context;
-        private readonly BusinessContext _business;
+        private readonly IBusinessRepository _businessRepository;
 
-        public SinhVienAPI(DapperContext context, BusinessContext business)
+        public SinhVienAPI(IBusinessRepository businessRepository)
         {
-            _context = context;
-            _business = business;
+           _businessRepository = businessRepository;
         }
 
 
@@ -27,7 +27,7 @@ namespace QLSV.Controllers
         [Route("GetListSinhVien")]
         public async Task<List<SinhVien>> GetListSinhVien()
         {
-            return await _business.GetListSinhVien();
+            return await _businessRepository.GetListSinhVien();
         }
 
         //Lấy sinh viên theo MASV
@@ -35,7 +35,7 @@ namespace QLSV.Controllers
         [Route("GetSinhVienByMASV")]
         public async Task<SinhVien> GetSinhVienByMASV(string MaSV)
         {
-            return await _business.GetSinhVienByMASV(MaSV);
+            return await _businessRepository.GetSinhVienByMASV(MaSV);
         }
 
         //Thêm sinh viên
@@ -43,7 +43,7 @@ namespace QLSV.Controllers
         [Route("InsertSinhVien")]
         public async Task<AddSinhVienResponse> InsertSinhVien(SinhVien sinhvien)
         {
-            return await _business.InsertSinhVien(sinhvien);
+            return await _businessRepository.InsertSinhVien(sinhvien);
         }
 
         //Xóa sinh viên
@@ -51,7 +51,7 @@ namespace QLSV.Controllers
         [Route("DeleteSinhVien")]
         public async Task DeleteSinhVien(string MaSV)
         {
-            await _business.DeleteSinhVien(MaSV);
+            await _businessRepository.DeleteSinhVien(MaSV);
         }
 
         //Update sinh viên
@@ -59,7 +59,7 @@ namespace QLSV.Controllers
         [Route("UpdateSinhVien")]
         public async Task UpdateSinhVien(string MaSV, SinhVien sinhvien)
         {
-           await _business.UpdateSinhVien(MaSV, sinhvien);
+           await _businessRepository.UpdateSinhVien(MaSV, sinhvien);
         }
 
         //Get sinh viên theo lớp
@@ -67,7 +67,7 @@ namespace QLSV.Controllers
         [Route("GetListSinhVienByLop")]
         public async Task<List<SinhVien>> GetListSinhVienByLop(string MaLop)
         {
-            return await _business.GetListSinhVienByLop(MaLop);
+            return await _businessRepository.GetListSinhVienByLop(MaLop);
         }
     }
 }

@@ -1,5 +1,7 @@
-
+﻿
 using QLSV.Context;
+using QLSV.Contracts;
+using QLSV.Repository;
 
 namespace QLSV
 {
@@ -20,7 +22,8 @@ namespace QLSV
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<DapperContext>();
-            builder.Services.AddScoped<BusinessContext>();
+            //Tạo lớp interface của Businessrepository để tách truy vấn và controller tăng an toàn
+            builder.Services.AddScoped<IBusinessRepository, BusinessRepository>();
 
             var app = builder.Build();
 

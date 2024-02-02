@@ -1,15 +1,17 @@
 ﻿using Dapper;
+using QLSV.Context;
+using QLSV.Contracts;
 using QLSV.Model;
 using QLSV.Response;
 using System.Data;
 
-namespace QLSV.Context
+namespace QLSV.Repository
 {
-    public class BusinessContext
+    public class BusinessRepository: IBusinessRepository
     {
         private readonly DapperContext _context;
 
-        public BusinessContext(DapperContext context)
+        public BusinessRepository(DapperContext context)
         {
             _context = context;
         }
