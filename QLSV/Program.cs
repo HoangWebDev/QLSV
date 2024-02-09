@@ -23,7 +23,8 @@ namespace QLSV
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<DapperContext>();
             //Tạo lớp interface của Businessrepository để tách truy vấn và controller tăng an toàn
-            builder.Services.AddScoped<IBusinessRepository, BusinessRepository>();
+            builder.Services.AddScoped<ISinhVienRepository, SinhVienRepository>();
+            builder.Services.AddScoped<ILopRepository, LopRepository>();
 
             var app = builder.Build();
 

@@ -7,4 +7,5 @@
     }
 
     public class AddSinhVienResponse : BaseReponse { }
+    public class AddLopResponse : BaseReponse { }
 }

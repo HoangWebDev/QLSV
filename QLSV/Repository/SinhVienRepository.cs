@@ -7,11 +7,11 @@ using System.Data;
 
 namespace QLSV.Repository
 {
-    public class BusinessRepository: IBusinessRepository
+    public class SinhVienRepository: ISinhVienRepository
     {
         private readonly DapperContext _context;
 
-        public BusinessRepository(DapperContext context)
+        public SinhVienRepository(DapperContext context)
         {
             _context = context;
         }

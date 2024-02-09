@@ -15,9 +15,9 @@ namespace QLSV.Controllers
     
     public class SinhVienAPI : ControllerBase
     {
-        private readonly IBusinessRepository _businessRepository;
+        private readonly ISinhVienRepository _businessRepository;
 
-        public SinhVienAPI(IBusinessRepository businessRepository)
+        public SinhVienAPI(ISinhVienRepository businessRepository)
         {
            _businessRepository = businessRepository;
         }
