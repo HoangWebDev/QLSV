@@ -83,9 +83,30 @@ namespace QLSV.Repository
             return addLopResponse;
         }
 
-        public Task UpdateLop(string MaLop, Lop lop)
+        ////Delete lớp
+        //public async Task DeleteLop(string Malop)
+        //{
+        //    var query = "DELETE FROM Lop WHERE MaLop = @MaLop";
+
+        //    using (var connection = _context.CreateConnection())
+        //    {
+        //        await connection.ExecuteAsync(query, new { MaLop });
+        //    }
+        //}
+
+        //Update lớp
+        public async Task UpdateLop(string MaLop, Lop lop)
         {
-            throw new NotImplementedException();
+            var query = "UPDATE Lop SET TenLop = @TenLop WHERE MaLop = @MaLop";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("MaLop", lop.MaLop, DbType.String);
+            parameters.Add("TenLop", lop.TenLop, DbType.String);
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
         }
     }
 }

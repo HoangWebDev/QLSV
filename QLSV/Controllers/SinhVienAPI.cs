@@ -15,11 +15,13 @@ namespace QLSV.Controllers
     
     public class SinhVienAPI : ControllerBase
     {
-        private readonly ISinhVienRepository _businessRepository;
+        private readonly ISinhVienRepository _sinhvienRepository;
+        private readonly ILopRepository _lopRepository;
 
-        public SinhVienAPI(ISinhVienRepository businessRepository)
+        public SinhVienAPI(ISinhVienRepository sinhvienRepository, ILopRepository lopRepository)
         {
-           _businessRepository = businessRepository;
+            _sinhvienRepository = sinhvienRepository;
+            _lopRepository = lopRepository;
         }
 
 
@@ -27,7 +29,7 @@ namespace QLSV.Controllers
         [Route("GetListSinhVien")]
         public async Task<List<SinhVien>> GetListSinhVien()
         {
-            return await _businessRepository.GetListSinhVien();
+            return await _sinhvienRepository.GetListSinhVien();
         }
 
         //Lấy sinh viên theo MASV
@@ -35,7 +37,7 @@ namespace QLSV.Controllers
         [Route("GetSinhVienByMASV")]
         public async Task<SinhVien> GetSinhVienByMASV(string MaSV)
         {
-            return await _businessRepository.GetSinhVienByMASV(MaSV);
+            return await _sinhvienRepository.GetSinhVienByMASV(MaSV);
         }
 
         //Thêm sinh viên
@@ -43,7 +45,7 @@ namespace QLSV.Controllers
         [Route("InsertSinhVien")]
         public async Task<AddSinhVienResponse> InsertSinhVien(SinhVien sinhvien)
         {
-            return await _businessRepository.InsertSinhVien(sinhvien);
+            return await _sinhvienRepository.InsertSinhVien(sinhvien);
         }
 
         //Xóa sinh viên
@@ -51,7 +53,7 @@ namespace QLSV.Controllers
         [Route("DeleteSinhVien")]
         public async Task DeleteSinhVien(string MaSV)
         {
-            await _businessRepository.DeleteSinhVien(MaSV);
+            await _sinhvienRepository.DeleteSinhVien(MaSV);
         }
 
         //Update sinh viên
@@ -59,7 +61,7 @@ namespace QLSV.Controllers
         [Route("UpdateSinhVien")]
         public async Task UpdateSinhVien(string MaSV, SinhVien sinhvien)
         {
-           await _businessRepository.UpdateSinhVien(MaSV, sinhvien);
+           await _sinhvienRepository.UpdateSinhVien(MaSV, sinhvien);
         }
 
         //Get sinh viên theo lớp
@@ -67,7 +69,46 @@ namespace QLSV.Controllers
         [Route("GetListSinhVienByLop")]
         public async Task<List<SinhVien>> GetListSinhVienByLop(string MaLop)
         {
-            return await _businessRepository.GetListSinhVienByLop(MaLop);
+            return await _sinhvienRepository.GetListSinhVienByLop(MaLop);
+        }
+
+        [HttpGet]
+        [Route("GetListLop")]
+        public async Task<List<Lop>> GetListLop()
+        {
+            return await _lopRepository.GetListLop();
+        }
+
+        //Lấy lớp theo MaLop
+        [HttpGet]
+        [Route("GetLopByMaLop")]
+        public async Task<Lop> GetLopByMaLop(string MaLop)
+        {
+            return await _lopRepository.GetLopByMaLop(MaLop);
+        }
+
+        //Thêm lớp
+        [HttpPost]
+        [Route("InsertLop")]
+        public async Task<AddLopResponse> InsertLop(Lop lop)
+        {
+            return await _lopRepository.InsertLop(lop);
+        }
+
+        //Xóa lớp
+        [HttpDelete]
+        [Route("DeleteLop")]
+        public async Task DeleteLop(string MaLop)
+        {
+            await _lopRepository.DeleteLop(MaLop);
+        }
+
+        //Update lớp
+        [HttpPatch]
+        [Route("UpdateLop")]
+        public async Task UpdateLop(string MaLop, Lop lop)
+        {
+            await _lopRepository.UpdateLop(MaLop, lop);
         }
     }
 }
