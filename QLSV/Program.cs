@@ -1,6 +1,8 @@
 ﻿
+using Microsoft.AspNetCore.Authentication;
 using QLSV.Context;
 using QLSV.Contracts;
+using QLSV.Handler;
 using QLSV.Repository;
 
 namespace QLSV
@@ -25,6 +27,10 @@ namespace QLSV
             //Tạo lớp interface của Businessrepository để tách truy vấn và controller tăng an toàn
             builder.Services.AddScoped<ISinhVienRepository, SinhVienRepository>();
             builder.Services.AddScoped<ILopRepository, LopRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddAuthentication("BasicAuthentication").
+                            AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>
+                            ("BasicAuthentication", null);
 
             var app = builder.Build();
 

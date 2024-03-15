@@ -16,12 +16,10 @@ namespace QLSV.Controllers
     public class SinhVienAPI : ControllerBase
     {
         private readonly ISinhVienRepository _sinhvienRepository;
-        private readonly ILopRepository _lopRepository;
 
-        public SinhVienAPI(ISinhVienRepository sinhvienRepository, ILopRepository lopRepository)
+        public SinhVienAPI(ISinhVienRepository sinhvienRepository)
         {
             _sinhvienRepository = sinhvienRepository;
-            _lopRepository = lopRepository;
         }
 
 
@@ -70,45 +68,6 @@ namespace QLSV.Controllers
         public async Task<List<SinhVien>> GetListSinhVienByLop(string MaLop)
         {
             return await _sinhvienRepository.GetListSinhVienByLop(MaLop);
-        }
-
-        [HttpGet]
-        [Route("GetListLop")]
-        public async Task<List<Lop>> GetListLop()
-        {
-            return await _lopRepository.GetListLop();
-        }
-
-        //Lấy lớp theo MaLop
-        [HttpGet]
-        [Route("GetLopByMaLop")]
-        public async Task<Lop> GetLopByMaLop(string MaLop)
-        {
-            return await _lopRepository.GetLopByMaLop(MaLop);
-        }
-
-        //Thêm lớp
-        [HttpPost]
-        [Route("InsertLop")]
-        public async Task<AddLopResponse> InsertLop(Lop lop)
-        {
-            return await _lopRepository.InsertLop(lop);
-        }
-
-        //Xóa lớp
-        [HttpDelete]
-        [Route("DeleteLop")]
-        public async Task DeleteLop(string MaLop)
-        {
-            await _lopRepository.DeleteLop(MaLop);
-        }
-
-        //Update lớp
-        [HttpPatch]
-        [Route("UpdateLop")]
-        public async Task UpdateLop(string MaLop, Lop lop)
-        {
-            await _lopRepository.UpdateLop(MaLop, lop);
         }
     }
 }

@@ -11,14 +11,11 @@ namespace QLSV.Repository
     {
         private readonly DapperContext _context;
 
+        public object MaLop { get; private set; }
+
         public LopRepository(DapperContext context)
         {
             _context = context;
-        }
-
-        public Task DeleteLop(string MaLop)
-        {
-            throw new NotImplementedException();
         }
 
         //Get list sinh viên 
@@ -83,16 +80,16 @@ namespace QLSV.Repository
             return addLopResponse;
         }
 
-        ////Delete lớp
-        //public async Task DeleteLop(string Malop)
-        //{
-        //    var query = "DELETE FROM Lop WHERE MaLop = @MaLop";
+        //Delete lớp
+        public async Task DeleteLop(string Malop)
+        {
+            var query = "DELETE FROM Lop WHERE MaLop = @MaLop";
 
-        //    using (var connection = _context.CreateConnection())
-        //    {
-        //        await connection.ExecuteAsync(query, new { MaLop });
-        //    }
-        //}
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, new { MaLop });
+            }
+        }
 
         //Update lớp
         public async Task UpdateLop(string MaLop, Lop lop)
