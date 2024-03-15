@@ -25,7 +25,7 @@ namespace QLSV.Repository
                 Id = 3, Username = "james", Password = "james123"
             }
         };
-        public async Task Authenticate(string username, string password)
+        public async Task<bool> Authenticate(string username, string password)
         {
             if (await Task.FromResult(_users.SingleOrDefault(x => x.Username == username && x.Password == password)) != null)
             {
@@ -35,7 +35,7 @@ namespace QLSV.Repository
         }
         public async Task<List<User>> GetUserNames()
         {
-            List users = new List();
+            List<User> users = new List<User>();
             foreach (var user in _users)
             {
                 users.Add(user.Username);

@@ -6,7 +6,7 @@ namespace QLSV.Contracts
 {
     public interface IUserRepository
     {
-        Task Authenticate(string username, string password);
+        Task<bool> Authenticate(string username, string password);
         Task<List<User>> GetUserNames();
     }
 }
