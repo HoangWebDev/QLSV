@@ -38,7 +38,7 @@ namespace QLSV.Repository
             List<User> users = new List<User>();
             foreach (var user in _users)
             {
-                users.Add(user.Username);
+                users.Add(new User { Username = user.Username });
             }
             return await Task.FromResult(users);
         }
