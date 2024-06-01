@@ -1,9 +1,12 @@
 ﻿
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using QLSV.Context;
 using QLSV.Contracts;
 using QLSV.Handler;
 using QLSV.Repository;
+using System.Text;
 
 namespace QLSV
 {
@@ -32,6 +35,19 @@ namespace QLSV
                             AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>
                             ("BasicAuthentication", null);
 
+            //JWT Authentication
+            //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            //        ValidAudience = builder.Configuration["Jwt:Audience"],
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            //    };
+            //});
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

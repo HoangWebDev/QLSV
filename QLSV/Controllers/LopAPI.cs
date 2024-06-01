@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QLSV.Context;
 using QLSV.Contracts;
@@ -12,16 +13,17 @@ namespace QLSV.Controllers
 
     [ApiController]
     [Route("[controller]")]
+
     public class LopAPI : ControllerBase
     {
         private readonly ILopRepository _lopRepository;
 
-        public LopAPI (ILopRepository lopRepository) 
-            {
-                _lopRepository = lopRepository;
-            }
+        public LopAPI(ILopRepository lopRepository)
+        {
+            _lopRepository = lopRepository;
+        }
 
-
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         [Route("GetListLop")]
         public async Task<List<Lop>> GetListLop()
@@ -30,6 +32,7 @@ namespace QLSV.Controllers
         }
 
         //Lấy lớp theo MaLop
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         [Route("GetLopByMaLop")]
         public async Task<Lop> GetLopByMaLop(string MaLop)
@@ -38,6 +41,7 @@ namespace QLSV.Controllers
         }
 
         //Thêm lớp
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("InsertLop")]
         public async Task<AddLopResponse> InsertLop(Lop lop)
@@ -47,6 +51,7 @@ namespace QLSV.Controllers
 
         //Xóa lớp
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("DeleteLop")]
         public async Task DeleteLop(string MaLop)
         {
@@ -55,6 +60,7 @@ namespace QLSV.Controllers
 
         //Update lớp
         [HttpPatch]
+        [Authorize(Roles = "Admin")]
         [Route("UpdateLop")]
         public async Task UpdateLop(string MaLop, Lop lop)
         {

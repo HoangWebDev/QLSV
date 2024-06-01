@@ -7,7 +7,7 @@ using System.Text.Encodings.Web;
 using System.Text;
 
 namespace QLSV.Handler
-{    
+{
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly IUserRepository _userRepository;
@@ -29,12 +29,13 @@ namespace QLSV.Handler
                 var token = authorizationHeader.Substring("Basic ".Length).Trim();
                 var credentialsAsEncodedString = Encoding.UTF8.GetString(Convert.FromBase64String(token));
                 var credentials = credentialsAsEncodedString.Split(':');
-                if (await _userRepository.Authenticate(credentials[0], credentials[1]))
+                string role = _userRepository.Authenticate(credentials[0], credentials[1]);
+                if (role != null)
                 {
-                    var claims = new[] { new Claim("name", credentials[0]), new Claim(ClaimTypes.Role, "Admin") };
+                    var claims = new[] { new Claim("name", credentials[0]), new Claim(ClaimTypes.Role, role) };
                     var identity = new ClaimsIdentity(claims, "Basic");
                     var claimsPrincipal = new ClaimsPrincipal(identity);
-                    await Context.SignInAsync(claimsPrincipal);
+                    //await Context.SignInAsync(claimsPrincipal);
                     return AuthenticateResult.Success(new AuthenticationTicket(claimsPrincipal, Scheme.Name));
                 }
             }

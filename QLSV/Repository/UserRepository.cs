@@ -14,7 +14,7 @@ namespace QLSV.Repository
         {
             new User
             {
-                Id = 1, Username = "peter", Password = "peter123"
+                Id = 1, Username = "peter", Password = "peter123", Role = "Admin"
             },
             new User
             {
@@ -22,16 +22,22 @@ namespace QLSV.Repository
             },
             new User
             {
-                Id = 3, Username = "james", Password = "james123"
+                Id = 3, Username = "james", Password = "james123", Role = "User"
             }
         };
-        public async Task<bool> Authenticate(string username, string password)
+        public string Authenticate(string username, string password)
         {
-            if (await Task.FromResult(_users.SingleOrDefault(x => x.Username == username && x.Password == password)) != null)
-            {
-                return true;
-            }
-            return false;
+
+            var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
+            if (user != null) return user.Role;
+            return null;
+        }
+
+        public User GetUser(string username, string password)
+        {
+
+            var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
+            return user;
         }
         public async Task<List<User>> GetUserNames()
         {
