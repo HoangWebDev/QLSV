@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QLSV.Context;
 using QLSV.Contracts;
@@ -10,9 +11,9 @@ using System.Data;
 
 namespace QLSV.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
-    
+    [ApiController]
+
     public class SinhVienAPI : ControllerBase
     {
         private readonly ISinhVienRepository _sinhvienRepository;
@@ -22,8 +23,8 @@ namespace QLSV.Controllers
             _sinhvienRepository = sinhvienRepository;
         }
 
-
         [HttpGet]
+        [Authorize]
         [Route("GetListSinhVien")]
         public async Task<List<SinhVien>> GetListSinhVien()
         {

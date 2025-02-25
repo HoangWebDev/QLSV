@@ -28,9 +28,6 @@ namespace QLSV.Controllers
 
         }
 
-
-
-
         [HttpGet]
         [Authorize]
         public async Task<List<User>> GetUserNames()
@@ -44,7 +41,7 @@ namespace QLSV.Controllers
 
         public string Login([FromBody] LoginRequest userLogin)
         {
-            var user = _userRepository.GetUser(userLogin.UserName, userLogin.Password);
+            var user = _userRepository.GetUser(userLogin.Username, userLogin.Password);
             if (user != null)
             {
                 string token = GenerateToken(user);

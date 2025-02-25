@@ -73,7 +73,7 @@ namespace QLSV.Repository
             catch (Exception ex)
             {
                 addLopResponse.ErrMess = "Da co loi xay ra insert khong thanh cong " + ex.Message;
-                addLopResponse.ErrCode = 1001;
+                addLopResponse.ErrCode = 400;
                 return addLopResponse;
             }
             addLopResponse.ErrMess = "Insert Thanh Cong";

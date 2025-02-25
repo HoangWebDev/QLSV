@@ -31,23 +31,20 @@ namespace QLSV
             builder.Services.AddScoped<ISinhVienRepository, SinhVienRepository>();
             builder.Services.AddScoped<ILopRepository, LopRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<CustomJwtBearerHandler>();
+
             builder.Services.AddAuthentication("BasicAuthentication").
                             AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>
                             ("BasicAuthentication", null);
 
+
             //JWT Authentication
-            //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-            //    options.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidateAudience = true,
-            //        ValidateLifetime = true,
-            //        ValidateIssuerSigningKey = true,
-            //        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            //        ValidAudience = builder.Configuration["Jwt:Audience"],
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-            //    };
-            //});
+
+            builder.Services.AddTransient<CustomJwtBearerHandler>();
+            builder.Services.AddHttpClient();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddScheme<JwtBearerOptions, CustomJwtBearerHandler>(JwtBearerDefaults.AuthenticationScheme, options => { });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -56,7 +53,7 @@ namespace QLSV
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
